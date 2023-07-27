@@ -124,11 +124,15 @@ th {
 }
 
 .extra {
-	  display: flex;
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 4px;
     margin-bottom: 10px;
+}
+
+#per {
+	display: inline;
 }
