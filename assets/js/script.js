@@ -1,49 +1,66 @@
-// Função para limpar a planilha
 function limparPlanilha() {
-    document.getElementById('planilha').innerHTML = '<tr><th>Data</th><th>Dia</th><th>Banca</th><th>Meta Diária</th></tr>';
+	document.getElementById('planilha').innerHTML = '<tr><th>Data</th><th>Dia</th><th>Banca</th><th>Meta Diária</th></tr>';
 }
 
-// Função para atualizar a planilha com base na banca e meta
-function atualizarPlanilha(bancaInicial, tipoMeta, meta) {
-    const dataInicio = new Date(document.getElementById('data-inicio').value);
-    const dataFim = new Date(document.getElementById('data-fim').value);
+const getMonthName = monthNumber => `MÊS ${monthNumber}`
 
-    let diasPassados = 1;
-    let bancaAtual = bancaInicial;
+			// Função para atualizar a planilha com base na banca e meta
+			function atualizarPlanilha(bancaInicial, tipoMeta, meta) {
+				const dataInicio = new Date(document.getElementById('data-inicio').value);
+				const dataFim = new Date(document.getElementById('data-fim').value);
 
-    while (dataInicio <= dataFim) {
-        const metaDiaria = tipoMeta === 'percent' ? (bancaAtual * meta) / 100 : meta;
-        const formattedDate = dataInicio.toLocaleDateString('pt-BR'); // Formata a data em DD/MM/AA
-        const formattedBanca = bancaAtual.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        const formattedMetaDiaria = metaDiaria.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        const row = `<tr>
-                        <td>${formattedDate}</td>
-                        <td>${diasPassados}</td>
-                        <td class='bank'>${formattedBanca}</td>
-                        <td class='objective'>${formattedMetaDiaria}</td>
-                     </tr>`;
-        document.getElementById('planilha').insertAdjacentHTML('beforeend', row);
-        
-        diasPassados++;
-        dataInicio.setDate(dataInicio.getDate() + 1);
-        bancaAtual += metaDiaria;
-    }
-}
+				let diasPassados = 1;
+				let mesesPassados = 2;
+				let bancaAtual = bancaInicial;
 
-// Evento para atualizar a planilha quando o botão "Atualizar" for clicado
-document.getElementById('atualizar-banca').addEventListener('click', function() {
-    const bancaInicial = parseFloat(document.getElementById('banca-inicial').value);
-    const tipoMeta = document.getElementById('tipo-meta').value;
-    const meta = parseFloat(document.getElementById('meta').value);
-    limparPlanilha(); // Limpa a planilha anterior
-    atualizarPlanilha(bancaInicial, tipoMeta, meta);
-});
+				while (dataInicio <= dataFim) {
+					const metaDiaria = tipoMeta === 'percent' ? (bancaAtual * meta) / 100: meta;
+					const formattedDate = dataInicio.toLocaleDateString('pt-BR'); // Formata a data em DD/MM/AA
+					const formattedBanca = bancaAtual.toLocaleString('pt-BR', {
+						style: 'currency', currency: 'BRL'
+					});
+					const formattedMetaDiaria = metaDiaria.toLocaleString('pt-BR', {
+						style: 'currency', currency: 'BRL'
+					});
 
-// Evento para gerar a planilha quando o botão "Gerar Planilha" for clicado
-document.getElementById('gerar-planilha').addEventListener('click', function() {
-    const bancaInicial = parseFloat(document.getElementById('banca-inicial').value);
-    const tipoMeta = document.getElementById('tipo-meta').value;
-    const meta = parseFloat(document.getElementById('meta').value);
-    limparPlanilha(); // Limpa a planilha anterior
-    atualizarPlanilha(bancaInicial, tipoMeta, meta);
+					// Verifica se já passaram 30 dias para adicionar uma linha vazia com o nome do mês
+					if (diasPassados % 30 === 0) {
+						const monthName = getMonthName(mesesPassados);
+						const monthRow = `<tr>
+						<td colspan='4'><strong>${monthName}</strong></td>
+						</tr>`;
+						document.getElementById('planilha').insertAdjacentHTML('beforeend', monthRow);
+						mesesPassados++;
+					}
+
+					const row = `<tr>
+					<td>${formattedDate}</td>
+					<td>${diasPassados}</td>
+					<td class='bank'>${formattedBanca}</td>
+					<td class='objective'>${formattedMetaDiaria}</td>
+					</tr>`;
+					document.getElementById('planilha').insertAdjacentHTML('beforeend', row);
+
+					diasPassados++;
+					dataInicio.setDate(dataInicio.getDate() + 1);
+					bancaAtual += metaDiaria;
+				}
+		}
+
+		// Evento para atualizar a planilha quando o botão "Atualizar" for clicado
+		document.getElementById('atualizar-banca').addEventListener('click', function() {
+			const bancaInicial = parseFloat(document.getElementById('banca-inicial').value);
+			const tipoMeta = document.getElementById('tipo-meta').value;
+			const meta = parseFloat(document.getElementById('meta').value);
+			limparPlanilha(); // Limpa a planilha anterior
+			atualizarPlanilha(bancaInicial, tipoMeta, meta);
+	});
+
+	// Evento para gerar a planilha quando o botão "Gerar Planilha" for clicado
+	document.getElementById('gerar-planilha').addEventListener('click', function() {
+		const bancaInicial = parseFloat(document.getElementById('banca-inicial').value);
+		const tipoMeta = document.getElementById('tipo-meta').value;
+		const meta = parseFloat(document.getElementById('meta').value);
+		limparPlanilha(); // Limpa a planilha anterior
+		atualizarPlanilha(bancaInicial, tipoMeta, meta);
 });
