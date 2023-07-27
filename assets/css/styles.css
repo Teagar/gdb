@@ -1,0 +1,134 @@
+body, h1, h2, h3, h4, h5, h6, p, ul, li, table {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 2.618rem; /* 1.618 * 1.618 = 2.618 (Proporção áurea) */
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.618rem; /* Tamanho baseado na proporção áurea */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+div {
+    margin-bottom: 10px;
+}
+
+label {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 1.382rem; /* Tamanho baseado na proporção áurea */
+}
+
+input[type="number"],
+select,
+button {
+    font-size: 1.382rem; /* Tamanho baseado na proporção áurea */
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+button {
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-size: 1.382rem; /* Tamanho baseado na proporção áurea */
+}
+
+#planilha-wrapper {
+    min-height: calc(100vh - 130px); /* Considerando o header e o footer */
+}
+
+#footer {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.382rem; /* Tamanho baseado na proporção áurea */
+}
+
+.dates-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.date-input-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.date-input-wrapper label {
+    margin-bottom: 5px;
+}
+
+.date-input-wrapper input[type="date"] {
+    font-size: 1.382rem;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f2f2f2;
+    flex: 1;
+}
+
+.bank {
+	background-color: green;
+}
+
+.objective {
+	background-color: yellow;
+}
+
+#extra {
+	display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
