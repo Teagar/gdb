@@ -14,8 +14,8 @@ function atualizarPlanilha(bancaInicial, tipoMeta, meta) {
     while (dataInicio <= dataFim) {
         const metaDiaria = tipoMeta === 'percent' ? (bancaAtual * meta) / 100 : meta;
         const formattedDate = dataInicio.toLocaleDateString('pt-BR'); // Formata a data em DD/MM/AA
-        const formattedBanca = `R$ ${bancaAtual.toFixed(2).replace('.', ',')}`;
-        const formattedMetaDiaria = `R$ ${metaDiaria.toFixed(2).replace('.', ',')}`;
+        const formattedBanca = bancaAtual.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        const formattedMetaDiaria = metaDiaria.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         const row = `<tr>
                         <td>${formattedDate}</td>
                         <td>${diasPassados}</td>
